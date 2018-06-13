@@ -1,0 +1,554 @@
+---
+title: First Graph - Nathans Hot Dog Eating Contest
+author: Matt Pomaville
+date: '2018-06-13'
+slug: first-graph
+categories:
+  - R
+  - CS631
+tags:
+  - ggplot
+description: Desc
+hacker_news_id: ''
+lobsters_id: ''
+meta_img: /images/image.jpg
+---
+
+
+
+<div id="about-the-data" class="section level1">
+<h1>About the Data</h1>
+<p>This plot was created using ggplot2 and other tidyverse packages in RStudio. The data to generate this plot was originally collected, cleaned, and hosted by Jackie Wirz, Steven Bedrick, and Alison Hill <a href="http://bit.yl/cs631-hotdog">here</a> and was modified by Matt Pomaville. The final data set used can be found <a href="https://raw.githubusercontent.com/Dystroglycan1234/Data-Vis-Class/master/Hot_dog_data_affiliations.csv">here</a></p>
+<p>The data used in this plot was collected from the Nathan’s Hot Dog Eating Contest website and Wikipedia page.</p>
+<p>The dataset has 4 columns:</p>
+<ul>
+<li><code>year</code> - The year of the contest</li>
+<li><code>gender</code> - The stated gender of the champion from that year</li>
+<li><code>name</code> - The name of the champion from that year</li>
+<li><code>num_eaten</code> - The number of hotdogs eaten during the contest</li>
+<li><code>affiliated</code> - The affiliation status of the champion
+<ul>
+<li><code>Current</code> - The champion was affiliated with the International Federation of Competetive Eating (IFOCE)</li>
+<li><code>Former</code> - The chamption was affiliated with a previous competitive eating federation</li>
+<li><code>not affiliated</code> - The champion was not affiliated with a competitive eating federation (or none existed).</li>
+</ul></li>
+<li><code>duration</code> - The duration of the contest in minutes</li>
+<li><code>HDM</code> - The number of hot dogs with bun eaten per minute during competition, gotten by dividing <code>num_eaten</code> by <code>duration</code></li>
+</ul>
+<p>The data set includes both male and female champions after 2011 when the female championship was introduced resulting in two data points per year from 2011 to 2017</p>
+</div>
+<div id="about-the-graph" class="section level1">
+<h1>About the Graph</h1>
+<div id="type-of-graph" class="section level2">
+<h2>Type of Graph</h2>
+<p>The graph used is an area scatterplot, or bubblechart. It is meant to show the relationship of three variables, <em>x</em> on the horizontal axis, <em>y</em> on the vertical axis, and <em>z</em> by the size of the point. Color can be used to identify a 4th related variable if desired.###Reading a scatterplot In general, scatterplots are used to show a trend or relationship between two variables. When first approaching a new graph, look at the x and y axis labels. Do these variables relate in your mind at all? Is one dependent on the other? Or is the graph showing a series of values for categories or factors?</p>
+<p>Next, look for a trend in the points. Are they trending up or down? A flat line? A “U” shape? Randomly distributed?</p>
+<p>If there is a trend in the points evaluate what this means regarding the x and y variables. The lack of a trend or relationship (a flat line or random distribution respectively) is often also meaningful.</p>
+<p>Finally, look for the meanings of any other variables. Often in scatterplots a third variable will be represented by point size, or color on a continuous scale. Clusters or groups of points are often denoted by different discrete colors which will be explicitly stated in the legend.</p>
+</div>
+<div id="audience" class="section level2">
+<h2>Audience</h2>
+<p>The audience for this graph is anyone interested in the advancement of the hot dog competitive eating record over time.</p>
+</div>
+<div id="what-is-this-graph-showing" class="section level2">
+<h2>What is this graph showing?</h2>
+<p>The plot shown above presents the number of hotdogs eaten per minute of competition by the winner of the Nathan’s Hot Dog Eating Contest from 1980 to 2017. The x-axis is the year of competition, and the y-axis is the number of hot dogs with buns (HDB) consumed per minute of competition. The area of each point is proportional to the total number of hot dogs consumed during the competition. The color of the points represents the affiliation status of the champion with the IFOCE. There are additional legend bars inserted in the graph grouping the points by competition length.</p>
+<p>The data in this graph shows that the number of hot dogs consumed per minute by the “Nathan’s” champion has steadily increased over the years. THere are major jumps which are associated with changes to the rules governing the competition, suggesting that the changes to the rules may play a role in the rate. For example, the average rate of consumption for a 10 minute competition may be higher than in a 12 minute competition because the competitors eat less hot dogs during the last 2 minutes due to “burn out”.</p>
+<div id="specifics-of-this-graph" class="section level3">
+<h3>Specifics of this graph</h3>
+<p>This graph has scales ranging from 0 to 8 on the y-axis and ranging from the year 1980 to 2020 on the x-axis. These values were chosen to encompass all data points in the set. Area was chosen to represent the total number of hot dogs consumed because the specific value for this data isn’t needed to interpret the graph, just an understanding that more recent champions have eaten more hot dogs than early champions, and that as the rate of consumption has gone up so has the total consumed.</p>
+</div>
+<div id="reading-a-scatterplot" class="section level3">
+<h3>Reading a scatterplot</h3>
+<p>In general, scatterplots are used to show a trend or relationship between two variables. When first approaching a new graph, look at the x and y axis labels. Do these variables relate in your mind at all? Is one dependent on the other? Or is the graph showing a series of values for categories or factors?</p>
+<p>Next, look for a trend in the points. Are they trending up or down? A flat line? A “U” shape? Randomly distributed?</p>
+<p>If there is a trend in the points evaluate what this means regarding the x and y variables. The lack of a trend or relationship (a flat line or random distribution respectively) is often also meaningful.</p>
+<p>Finally, look for the meanings of any other variables. Often in scatterplots a third variable will be represented by point size, or color on a continuous scale. Clusters or groups of points are often denoted by different discrete colors which will be explicitly stated in the legend.</p>
+</div>
+<div id="alternatives-to-the-scatterplot" class="section level3">
+<h3>Alternatives to the scatterplot</h3>
+<p>Scatterplots are one of the core plots used to represent a pair of variables. They are generally quick to read and interpret, especially if made well. Alternative plots to represent the relationship of two variables include:</p>
+<p>If one variable is categorical/discrete while the other is continuous: * Bar/column plot</p>
+<p>If both variables are continuous a scatterplot is likely your best bet.</p>
+<p>With three continuous variables a heatmap can be used.</p>
+</div>
+</div>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<div id="setting-up-the-environment" class="section level2">
+<h2>Setting up the environment</h2>
+<p>Load in the <code>tidyverse</code> library for data manipulation and graphing.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>Read in the dataset</p>
+<pre class="r"><code>hot_dog_affil &lt;- read_csv(&quot;https://raw.githubusercontent.com/Dystroglycan1234/Data-Vis-Class/master/Hot_dog_data_affiliations.csv&quot;,
+    col_types = cols(
+      gender = col_factor(levels = NULL),
+      affiliated = col_factor(levels = NULL)
+    ))</code></pre>
+<p>The dataset should have 49 rows when read in.</p>
+<p>Due to inconsistencies in the rules before 1978 we are going to exclude champions from before 1978 from the graph.</p>
+<pre class="r"><code>hot_dog_affil &lt;- hot_dog_affil %&gt;% 
+  filter(year &gt;= 1978)</code></pre>
+<p>Here is the data table:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="left">gender</th>
+<th align="left">name</th>
+<th align="right">num_eaten</th>
+<th align="left">affiliated</th>
+<th align="right">duration</th>
+<th align="right">HDM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2017</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">72.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">7.2000000</td>
+</tr>
+<tr class="even">
+<td align="right">2017</td>
+<td align="left">female</td>
+<td align="left">Miki Sudo</td>
+<td align="right">41.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">4.1000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2016</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">70.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">7.0000000</td>
+</tr>
+<tr class="even">
+<td align="right">2016</td>
+<td align="left">female</td>
+<td align="left">Miki Sudo</td>
+<td align="right">38.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">3.8000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2015</td>
+<td align="left">male</td>
+<td align="left">Matthew Stonie</td>
+<td align="right">62.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.2000000</td>
+</tr>
+<tr class="even">
+<td align="right">2015</td>
+<td align="left">female</td>
+<td align="left">Miki Sudo</td>
+<td align="right">38.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">3.8000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2014</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">61.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.1000000</td>
+</tr>
+<tr class="even">
+<td align="right">2014</td>
+<td align="left">female</td>
+<td align="left">Miki Sudo</td>
+<td align="right">34.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">3.4000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">69.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.9000000</td>
+</tr>
+<tr class="even">
+<td align="right">2013</td>
+<td align="left">female</td>
+<td align="left">Sonya Thomas</td>
+<td align="right">36.750</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">3.6750000</td>
+</tr>
+<tr class="odd">
+<td align="right">2012</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">68.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.8000000</td>
+</tr>
+<tr class="even">
+<td align="right">2012</td>
+<td align="left">female</td>
+<td align="left">Sonya Thomas</td>
+<td align="right">45.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">4.5000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2011</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">62.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.2000000</td>
+</tr>
+<tr class="even">
+<td align="right">2011</td>
+<td align="left">female</td>
+<td align="left">Sonya Thomas</td>
+<td align="right">40.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">4.0000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2010</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">54.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">5.4000000</td>
+</tr>
+<tr class="even">
+<td align="right">2009</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">68.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">6.8000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2008</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">59.000</td>
+<td align="left">current</td>
+<td align="right">10.0</td>
+<td align="right">5.9000000</td>
+</tr>
+<tr class="even">
+<td align="right">2007</td>
+<td align="left">male</td>
+<td align="left">Joey Chestnut</td>
+<td align="right">66.000</td>
+<td align="left">current</td>
+<td align="right">12.0</td>
+<td align="right">5.5000000</td>
+</tr>
+<tr class="odd">
+<td align="right">2006</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">53.750</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">4.4791667</td>
+</tr>
+<tr class="even">
+<td align="right">2005</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">49.000</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">4.0833333</td>
+</tr>
+<tr class="odd">
+<td align="right">2004</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">53.500</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">4.4583333</td>
+</tr>
+<tr class="even">
+<td align="right">2003</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">44.500</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">3.7083333</td>
+</tr>
+<tr class="odd">
+<td align="right">2002</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">50.000</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">4.1666667</td>
+</tr>
+<tr class="even">
+<td align="right">2001</td>
+<td align="left">male</td>
+<td align="left">Takeru Kobayashi</td>
+<td align="right">50.000</td>
+<td align="left">former</td>
+<td align="right">12.0</td>
+<td align="right">4.1666667</td>
+</tr>
+<tr class="odd">
+<td align="right">2000</td>
+<td align="left">male</td>
+<td align="left">Kazutoyo Arai</td>
+<td align="right">25.125</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">2.0937500</td>
+</tr>
+<tr class="even">
+<td align="right">1999</td>
+<td align="left">male</td>
+<td align="left">Steve Keiner</td>
+<td align="right">20.250</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.6875000</td>
+</tr>
+<tr class="odd">
+<td align="right">1998</td>
+<td align="left">male</td>
+<td align="left">Hirofumi Nakajima</td>
+<td align="right">19.000</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.5833333</td>
+</tr>
+<tr class="even">
+<td align="right">1997</td>
+<td align="left">male</td>
+<td align="left">Hirofumi Nakajima</td>
+<td align="right">24.500</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">2.0416667</td>
+</tr>
+<tr class="odd">
+<td align="right">1996</td>
+<td align="left">male</td>
+<td align="left">Ed Krachie</td>
+<td align="right">22.250</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.8541667</td>
+</tr>
+<tr class="even">
+<td align="right">1995</td>
+<td align="left">male</td>
+<td align="left">Ed Krachie</td>
+<td align="right">19.500</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.6250000</td>
+</tr>
+<tr class="odd">
+<td align="right">1994</td>
+<td align="left">male</td>
+<td align="left">Mike Devito</td>
+<td align="right">20.000</td>
+<td align="left">not affiliated</td>
+<td align="right">NA</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="right">1993</td>
+<td align="left">male</td>
+<td align="left">Mike Devito</td>
+<td align="right">17.000</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.4166667</td>
+</tr>
+<tr class="odd">
+<td align="right">1992</td>
+<td align="left">male</td>
+<td align="left">Frank Dellarosa</td>
+<td align="right">19.000</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.5833333</td>
+</tr>
+<tr class="even">
+<td align="right">1991</td>
+<td align="left">male</td>
+<td align="left">Frank Dellarosa</td>
+<td align="right">21.500</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.7916667</td>
+</tr>
+<tr class="odd">
+<td align="right">1990</td>
+<td align="left">male</td>
+<td align="left">Mike Devito</td>
+<td align="right">16.000</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.3333333</td>
+</tr>
+<tr class="even">
+<td align="right">1989</td>
+<td align="left">male</td>
+<td align="left">Jay Green</td>
+<td align="right">15.500</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">1.2916667</td>
+</tr>
+<tr class="odd">
+<td align="right">1988</td>
+<td align="left">male</td>
+<td align="left">Jay Green</td>
+<td align="right">10.000</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">0.8333333</td>
+</tr>
+<tr class="even">
+<td align="right">1987</td>
+<td align="left">male</td>
+<td align="left">Don Wolfman</td>
+<td align="right">13.500</td>
+<td align="left">not affiliated</td>
+<td align="right">10.0</td>
+<td align="right">1.3500000</td>
+</tr>
+<tr class="odd">
+<td align="right">1986</td>
+<td align="left">male</td>
+<td align="left">Mark Heller</td>
+<td align="right">15.500</td>
+<td align="left">not affiliated</td>
+<td align="right">10.0</td>
+<td align="right">1.5500000</td>
+</tr>
+<tr class="even">
+<td align="right">1985</td>
+<td align="left">male</td>
+<td align="left">Oscar Rodriguez</td>
+<td align="right">11.750</td>
+<td align="left">not affiliated</td>
+<td align="right">12.0</td>
+<td align="right">0.9791667</td>
+</tr>
+<tr class="odd">
+<td align="right">1984</td>
+<td align="left">male</td>
+<td align="left">Birgit Felden</td>
+<td align="right">9.500</td>
+<td align="left">not affiliated</td>
+<td align="right">10.0</td>
+<td align="right">0.9500000</td>
+</tr>
+<tr class="even">
+<td align="right">1983</td>
+<td align="left">male</td>
+<td align="left">Emil Gomez</td>
+<td align="right">10.500</td>
+<td align="left">not affiliated</td>
+<td align="right">10.0</td>
+<td align="right">1.0500000</td>
+</tr>
+<tr class="odd">
+<td align="right">1982</td>
+<td align="left">male</td>
+<td align="left">Steven Abrams</td>
+<td align="right">11.000</td>
+<td align="left">not affiliated</td>
+<td align="right">NA</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="right">1981</td>
+<td align="left">male</td>
+<td align="left">Thomas Deberry</td>
+<td align="right">11.000</td>
+<td align="left">not affiliated</td>
+<td align="right">NA</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="right">1980</td>
+<td align="left">male</td>
+<td align="left">Paul Siderman &amp; Joe Baldini</td>
+<td align="right">9.000</td>
+<td align="left">not affiliated</td>
+<td align="right">10.0</td>
+<td align="right">0.9000000</td>
+</tr>
+<tr class="even">
+<td align="right">1979</td>
+<td align="left">male</td>
+<td align="left">Thomas Stash</td>
+<td align="right">19.000</td>
+<td align="left">not affiliated</td>
+<td align="right">NA</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="right">1978</td>
+<td align="left">male</td>
+<td align="left">Manel Hollenback</td>
+<td align="right">10.000</td>
+<td align="left">not affiliated</td>
+<td align="right">6.5</td>
+<td align="right">1.5384615</td>
+</tr>
+</tbody>
+</table>
+<p>We can now create the graph using <code>ggplot</code></p>
+<pre class="r"><code>HDM_plot &lt;- ggplot(hot_dog_affil, aes(x = year, y = HDM)) +
+  geom_point(aes(color = affiliated, size = num_eaten)) +
+  labs(x = &quot;Year&quot;, y = &quot;Hot dogs consumed per minute&quot;) +
+  ggtitle(&quot;Hot dogs consumed per minute during the \nNathan&#39;s Hot Dog Eating Contest, 1980-2017&quot;)+
+  scale_color_discrete(name = &quot;IFOCE-Affiliation&quot;)+
+  scale_size_continuous(name = &quot;Total hot dogs consumed&quot;)+
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  coord_cartesian(xlim = c(1977,2018), ylim = c(-1, 8)) +
+  annotate(&#39;segment&#39;, x = 2001, xend = 2001, y = -1, yend = 2.25, size = 0.5, color = (&#39;black&#39;)) +
+  annotate(&#39;text&#39;, x = 2001.1, y = 0.75, label = &quot;Variable \nCompetition \nLength&quot;, hjust = 0.0, size = 3) +
+  annotate(&#39;segment&#39;, x = 1999.5, xend = 1999.5, y = 3, yend = 5, size = 0.5, color = (&#39;black&#39;)) +
+  annotate(&#39;text&#39;, x = 1999, y = 4, label = &quot;12 min \nCompetition&quot;, hjust = 1, size = 3) +
+  annotate(&#39;segment&#39;, x = 2005.5, xend = 2005.5, y = 5, yend = 7.75, size = 0.5, color = (&#39;black&#39;)) +
+  annotate(&#39;text&#39;, x = 2004.5, y = 6.25, label = &quot;10 min \nCompetition&quot;, hjust = 1.0, size = 3) +
+  annotate(&#39;segment&#39;, x = 2011, xend = 2017, y = 3, yend = 3, size = 0.5, color = (&#39;black&#39;)) +
+  annotate(&#39;text&#39;, x = 2014, y = 2, label = &quot;Female \nChampionship \nIntroduced&quot;, hjust = 0.5, size = 3)</code></pre>
+<p>To make this graph I generated a general ggplot object based on the <code>hot_dog_affil</code> data table. I assigned <code>year</code> to the x-axis, and <code>HDM</code> to the y-axis. To this I added a <code>geom_point</code> layer with color and fill determined by <code>affiliated</code> and size determined by <code>num_eaten</code>. This generated the base plot without any annotations. I added annotations forcompetition length, as well as the introduction of the female category. To do this I added a series of annotation lines and notes manually. Finally, I added a graph title, and axis titles.</p>
+<p>This is the resulting graph</p>
+<p><img src="/blog/2018-06-13-first-graph-nathans-hot-dog-eating-contest_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>

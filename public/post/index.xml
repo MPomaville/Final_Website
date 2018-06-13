@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Post on CS631 Final Project</title>
+    <link>/post/</link>
+    <description>Recent content in Post on CS631 Final Project</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Wed, 13 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First Graph - Nathan&#39;s Hot Dog Eating Contest</title>
+      <link>/post/first-graph-nathan-s-hot-dog-eating-contest/</link>
+      <pubDate>Wed, 13 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/first-graph-nathan-s-hot-dog-eating-contest/</guid>
+      <description>About the Data This plot was created using ggplot2 and other tidyverse packages in RStudio. The data to generate this plot was originally collected, cleaned, and hosted by Jackie Wirz, Steven Bedrick, and Alison Hill here and was modified by Matt Pomaville. The final data set used can be found here
+The data used in this plot was collected from the Nathan’s Hot Dog Eating Contest website and Wikipedia page.</description>
+    </item>
+    
+  </channel>
+</rss>

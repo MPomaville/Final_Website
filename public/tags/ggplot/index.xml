@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on CS631 Final Project</title>
-    <link>/categories/r/</link>
-    <description>Recent content in R on CS631 Final Project</description>
+    <title>Ggplot on CS631 Final Project</title>
+    <link>/tags/ggplot/</link>
+    <description>Recent content in Ggplot on CS631 Final Project</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Wed, 13 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/ggplot/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -52,17 +52,6 @@ library(tidyverse) library(gapminder) library(wesanderson)  Cleaning up the gapm
       <description>Life expectancy by continent vs. global mean life expectancy graph brief This is a brief describing the graph created from the gapminder dataset. It is available as a CRAN Package by installing gapminder and calling library(gapminder) during setup.
 Load required libraries To make this graph I used the tidyverse, gapminder, and wesanderson libraries.
 library(tidyverse) library(gapminder) library(wesanderson) In this visalization I want to examine the relative number of countries in each continent with life expectancies over themean life expectancy in 2007 by year.</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/blog/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/blog/hello-r-markdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
     </item>
     
   </channel>

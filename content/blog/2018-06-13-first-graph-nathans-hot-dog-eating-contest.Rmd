@@ -1,0 +1,146 @@
+---
+title: First Graph - Nathans Hot Dog Eating Contest
+author: Matt Pomaville
+date: '2018-06-13'
+slug: first-graph
+categories:
+  - R
+  - CS631
+tags:
+  - ggplot
+description: Desc
+hacker_news_id: ''
+lobsters_id: ''
+meta_img: /images/image.jpg
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#About the Data
+This plot was created using ggplot2 and other tidyverse packages in RStudio. The data to generate this plot was originally collected, cleaned, and hosted by Jackie Wirz, Steven Bedrick, and Alison Hill [here](http://bit.yl/cs631-hotdog) and was modified by Matt Pomaville.
+The final data set used can be found [here](https://raw.githubusercontent.com/Dystroglycan1234/Data-Vis-Class/master/Hot_dog_data_affiliations.csv)
+
+The data used in this plot was collected from the Nathan's Hot Dog Eating Contest website and Wikipedia page. 
+
+The dataset has 4 columns:
+
+* `year` - The year of the contest
+* `gender` - The stated gender of the champion from that year
+* `name` - The name of the champion from that year
+* `num_eaten` - The number of hotdogs eaten during the contest 
+* `affiliated` - The affiliation status of the champion
+    + `Current` - The champion was affiliated with the International Federation of Competetive Eating (IFOCE)
+    + `Former` - The chamption was affiliated with a previous competitive eating federation
+    + `not affiliated` - The champion was not affiliated with a competitive eating federation (or none existed). 
+* `duration` - The duration of the contest in minutes
+* `HDM` - The number of hot dogs with bun eaten per minute during competition, gotten by dividing `num_eaten` by `duration` 
+
+The data set includes both male and female champions after 2011 when the female championship was introduced resulting in two data points per year from 2011 to 2017
+
+
+#About the Graph
+
+##Type of Graph
+The graph used is an area scatterplot, or bubblechart. It is meant to show the relationship of three variables, *x* on the horizontal axis, *y* on the vertical axis, and *z* by the size of the point. Color can be used to identify a 4th related variable if desired.###Reading a scatterplot
+In general, scatterplots are used to show a trend or relationship between two variables. When first approaching a new graph, look at the x and y axis labels. Do these variables relate in your mind at all? Is one dependent on the other? Or is the graph showing a series of values for categories or factors? 
+
+Next, look for a trend in the points. Are they trending up or down? A flat line? A "U" shape? Randomly distributed?
+
+If there is a trend in the points evaluate what this means regarding the x and y variables. The lack of a trend or relationship (a flat line or random distribution respectively) is often also meaningful.
+
+Finally, look for the meanings of any other variables. Often in scatterplots a third variable will be represented by point size, or color on a continuous scale. Clusters or groups of points are often denoted by different discrete colors which will be explicitly stated in the legend.
+
+##Audience
+The audience for this graph is anyone interested in the advancement of the hot dog competitive eating record over time.
+
+##What is this graph showing?
+
+The plot shown above presents the number of hotdogs eaten per minute of competition by the winner of the Nathan's Hot Dog Eating Contest from 1980 to 2017. The x-axis is the year of competition, and the y-axis is the number of hot dogs with buns (HDB) consumed per minute of competition. The area of each point is proportional to the total number of hot dogs consumed during the competition. The color of the points represents the affiliation status of the champion with the IFOCE. There are additional legend bars inserted in the graph grouping the points by competition length.
+
+The data in this graph shows that the number of hot dogs consumed per minute by the "Nathan's" champion has steadily increased over the years. THere are major jumps which are associated with changes to the rules governing the competition, suggesting that the changes to the rules may play a role in the rate. For example, the average rate of consumption for a 10 minute competition may be higher than in a 12 minute competition because the competitors eat less hot dogs during the last 2 minutes due to "burn out".
+
+###Specifics of this graph
+This graph has scales ranging from 0 to 8 on the y-axis and ranging from the year 1980 to 2020 on the x-axis. These values were chosen to encompass all data points in the set. Area was chosen to represent the total number of hot dogs consumed because the specific value for this data isn't needed to interpret the graph, just an understanding that more recent champions have eaten more hot dogs than early champions, and that as the rate of consumption has gone up so has the total consumed.
+
+###Reading a scatterplot
+In general, scatterplots are used to show a trend or relationship between two variables. When first approaching a new graph, look at the x and y axis labels. Do these variables relate in your mind at all? Is one dependent on the other? Or is the graph showing a series of values for categories or factors? 
+
+Next, look for a trend in the points. Are they trending up or down? A flat line? A "U" shape? Randomly distributed?
+
+If there is a trend in the points evaluate what this means regarding the x and y variables. The lack of a trend or relationship (a flat line or random distribution respectively) is often also meaningful.
+
+Finally, look for the meanings of any other variables. Often in scatterplots a third variable will be represented by point size, or color on a continuous scale. Clusters or groups of points are often denoted by different discrete colors which will be explicitly stated in the legend.
+
+###Alternatives to the scatterplot
+Scatterplots are one of the core plots used to represent a pair of variables. They are generally quick to read and interpret, especially if made well. Alternative plots to represent the relationship of two variables include:
+
+If one variable is categorical/discrete while the other is continuous:
+* Bar/column plot
+
+If both variables are continuous a scatterplot is likely your best bet.
+
+With three continuous variables a heatmap can be used.
+
+# Methods
+##Setting up the environment
+Load in the `tidyverse` library for data manipulation and graphing.
+```{r message = FALSE }
+library(tidyverse)
+```
+Read in the dataset
+```{r message = FALSE}
+hot_dog_affil <- read_csv("https://raw.githubusercontent.com/Dystroglycan1234/Data-Vis-Class/master/Hot_dog_data_affiliations.csv",
+    col_types = cols(
+      gender = col_factor(levels = NULL),
+      affiliated = col_factor(levels = NULL)
+    ))
+```
+The dataset should have `r count(hot_dog_affil)` rows when read in.
+
+Due to inconsistencies in the rules before 1978 we are going to exclude champions from before 1978 from the graph.
+
+```{r}
+hot_dog_affil <- hot_dog_affil %>% 
+  filter(year >= 1978)
+```
+
+Here is the data table:
+
+```{r, results = 'asis', echo = FALSE}
+knitr::kable(hot_dog_affil)
+```
+
+We can now create the graph using `ggplot`
+
+```{r message = FALSE}
+HDM_plot <- ggplot(hot_dog_affil, aes(x = year, y = HDM)) +
+  geom_point(aes(color = affiliated, size = num_eaten)) +
+  labs(x = "Year", y = "Hot dogs consumed per minute") +
+  ggtitle("Hot dogs consumed per minute during the \nNathan's Hot Dog Eating Contest, 1980-2017")+
+  scale_color_discrete(name = "IFOCE-Affiliation")+
+  scale_size_continuous(name = "Total hot dogs consumed")+
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  coord_cartesian(xlim = c(1977,2018), ylim = c(-1, 8)) +
+  annotate('segment', x = 2001, xend = 2001, y = -1, yend = 2.25, size = 0.5, color = ('black')) +
+  annotate('text', x = 2001.1, y = 0.75, label = "Variable \nCompetition \nLength", hjust = 0.0, size = 3) +
+  annotate('segment', x = 1999.5, xend = 1999.5, y = 3, yend = 5, size = 0.5, color = ('black')) +
+  annotate('text', x = 1999, y = 4, label = "12 min \nCompetition", hjust = 1, size = 3) +
+  annotate('segment', x = 2005.5, xend = 2005.5, y = 5, yend = 7.75, size = 0.5, color = ('black')) +
+  annotate('text', x = 2004.5, y = 6.25, label = "10 min \nCompetition", hjust = 1.0, size = 3) +
+  annotate('segment', x = 2011, xend = 2017, y = 3, yend = 3, size = 0.5, color = ('black')) +
+  annotate('text', x = 2014, y = 2, label = "Female \nChampionship \nIntroduced", hjust = 0.5, size = 3)
+```
+
+To make this graph I generated a general ggplot object based on the `hot_dog_affil` data table. I assigned `year` to the x-axis, and `HDM` to the y-axis. 
+To this I added a `geom_point` layer with color and fill determined by `affiliated` and size determined by `num_eaten`. 
+This generated the base plot without any annotations. I added annotations forcompetition length, as well as the introduction of the female category. To do this I added a series of annotation lines and notes manually. 
+Finally, I added a graph title, and axis titles.
+
+This is the resulting graph
+
+```{r, echo = FALSE}
+HDM_plot
+```
