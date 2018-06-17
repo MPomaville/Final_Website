@@ -6,10 +6,19 @@
     <description>Recent content on Matthew Pomaville</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 13 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Final Project - Women and Children First?</title>
+      <link>/projects/final-project/</link>
+      <pubDate>Sun, 17 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/final-project/</guid>
+      <description>Final Project Graph - Titanic Women and Children Introduction This graph looks at the common maritime trope “Women and children first” in the survivors of the sinking of the RMS Titanic on its maiden voyage in 1912. It is commonly believed that men on the Titanic took a role ensuring the women and children on board made it onto the lifeboat before boarding themselves, resulting in more women and children surviving the sknking.</description>
+    </item>
     
     <item>
       <title>About Me</title>
@@ -62,16 +71,6 @@ library(tidyverse) library(gapminder) library(wesanderson)  Cleaning up the gapm
       <description>Life expectancy by continent vs. global mean life expectancy graph brief This is a brief describing the graph created from the gapminder dataset. It is available as a CRAN Package by installing gapminder and calling library(gapminder) during setup.
 Load required libraries To make this graph I used the tidyverse, gapminder, and wesanderson libraries.
 library(tidyverse) library(gapminder) library(wesanderson) In this visalization I want to examine the relative number of countries in each continent with life expectancies over themean life expectancy in 2007 by year.</description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>/projects/projects/</link>
-      <pubDate>Wed, 19 Aug 2015 20:29:37 -0700</pubDate>
-      
-      <guid>/projects/projects/</guid>
-      <description>In this theme, it is possible to add sections like a Projects one for example. You can add plenty of articles about your projects and a presentation page that will be displayed before the list. All is modulable, if you don&amp;rsquo;t want something.
-A Hollywood-funded film version, produced and filmed in the UK, was released in April 2005, and radio adaptations of the third, fourth, and fifth novels were broadcast from 2004 to 2005.</description>
     </item>
     
     <item>

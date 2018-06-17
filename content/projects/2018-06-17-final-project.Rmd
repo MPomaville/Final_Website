@@ -1,0 +1,222 @@
+---
+title: Final Project - Women and Children First?
+author: Matt Pomaville
+date: '2018-06-17'
+slug: final-project
+categories: []
+tags: []
+description: Desc
+hacker_news_id: ''
+lobsters_id: ''
+meta_img: /images/image.jpg
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Final Project Graph - Titanic Women and Children
+
+##Introduction
+This graph looks at the common maritime trope "Women and children first" in the survivors of the sinking of the RMS Titanic on its maiden voyage in 1912. It is commonly believed that men on the Titanic took a role ensuring the women and children on board made it onto the lifeboat before boarding themselves, resulting in more women and children surviving the sknking. Passengers on the Titanic were also divided into three classes based on ticket price. First class and second class areas of the skip were generally located on higher decks, while third class areas were located close to the waterline. Locking gates separated the class areas from each other, and during the sinking and evacuation many crew members forgot to unlock their assigned gates leaving many thirdd class passengers with no straightforward escape option. Beacause the dataset I am using contains passenger class I will attempt to incorporate this into my graph to look at class survival proportion.  
+
+At the time of its sinking the Titanic was carrying 1,317 passengers and 885 crew members. 710 people were saved after the sinking, and 1,514 died in the northern Atlantic Ocean. Using a dataset based on passenger records and identification of recovered bodies, I aim to explore the idea that a larger proportion of the women and children on the Titanic survived the incident than the men on board.   
+
+##Required Libraries
+Creating this graph used the `tidyverse` and data from the `titanic` package on CRAN
+
+```{r message = FALSE}
+library(tidyverse)
+library(titanic)
+```
+
+##The Graph
+
+Here is the graph I made to look at the concept of "Women and children first" on the Titanic. 
+
+```{r echo = FALSE}
+titanic <- titanic_train %>% 
+  mutate(Pclass = as.factor(Pclass)) %>% 
+  mutate(Sex = as.factor(Sex)) %>% 
+  mutate(Embarked = as.factor(Embarked)) %>% 
+  mutate(Age = as.integer(Age))%>%
+  #Set the columns with ambiguous data types to something more usable. Most things will be factors rather than double or integers. Age imports as a character so I forced it to read as an integer.
+  mutate(Age_group = case_when(Age <= 18 ~ "child", Age >18 ~ "adult"))%>% 
+  #Add a column called Age_group with child if the passenger was under 18 and adult if they weren't.
+  filter(Age != "NA") %>% 
+  #This will remove all the rows without a known age. 
+  select(PassengerId, Survived, Pclass, Sex, Age_group)
+
+num_survived <- titanic %>% 
+ group_by(Sex, Age_group) %>% 
+ tally()
+#This gives me counts for the number of men, women, boys, and girls.
+
+survival_counts <- titanic %>% 
+  group_by(Sex, Age_group, Survived, Pclass) %>% 
+  tally() %>% 
+  mutate(prop_survived = if_else(Sex == "female" & Age_group == "adult", n/193, if_else(Sex == "female" & Age_group == "child", n/68, if_else(Sex == "male" & Age_group == "child", n/71, n/382)))) %>% 
+  #This is a kludgy way to do this, it finds the percent/proportion of survivors in a given group by dividing the survivor number by the total number found above and stored in num_survived.
+  mutate(perc_survived = 100*prop_survived) %>% 
+  filter(Survived == 1)
+#this filters the non-surviving passenger values.
+
+labels <- c(female = "Women/Girls", male = "Men/Boys")
+#This creates a df to use for re-labeling the two graphs after the facet wrap.
+
+ggplot(survival_counts, aes(x = Age_group, y = perc_survived, fill = Pclass))+
+  geom_bar(stat = "identity")+
+  facet_wrap("Sex", labeller = labeller(Sex = labels))+
+  ggtitle("Did 'Women and children first' really apply on the Titanic?", subtitle = "Analyzing the surviving passenger information")+
+  labs(x = "Age Group (Child = under 18)", y = "Percent surviving of group")+
+  coord_cartesian(ylim = c(0,100))+
+  scale_fill_manual(values = c("#DD8D29", "#46ACC8","#B40F20"), name = "Passenger class")+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 100, 25), minor_breaks = seq(0, 100, 12.5))+
+  scale_x_discrete( expand = c(0,0.6), labels = c("Adult", "Child"))+
+  theme_minimal()
+```
+
+##The Data
+The data for this graph comes from the CRAN package `titanic` a compilation of records listing details on 891 passengers. This package is intended for use in machine learning exercises and comes with multiple datasets, but I am interested in `titanic_train` The data included in these records includes:
+
+* `PassengerID`: The number of the passenger, only relevant to this document
+* `Survived`: 1 = Yes, 0 = No
+* `pclass`: Ticket class, 1st, 2nd, 3rd
+* `Name`: Passenger name formatted as Last, title first middle
+* `sex`: sex
+* `Age`: in years, xx.5 means estimated
+* `SibSp`: The number of siblings and spouses travelling with them
+* `Parch`: The number of parents and children travelling with them. Nannies do not count
+* `Ticket`: Ticket number
+* `Fare`: Ticket price in 1912 GBP
+* `Cabin`: Cabin number
+* `Embarked`: The port of embarkation 
+    + C - Cherbourg 
+    + Q - Queenstown 
+    + S - Southampton
+
+With some values left blank if unknown.
+
+###Filtering and processing the data
+To look at survival related to sex and age I only needed a few columns from the whole dataset, so I selected only those columns. I then removed any columns with no data for Age. 
+
+```{r tidy = TRUE, eval = FALSE}
+titanic <- titanic_train %>% 
+  mutate(Pclass = as.factor(Pclass)) %>% 
+  mutate(Sex = as.factor(Sex)) %>% 
+  mutate(Embarked = as.factor(Embarked)) %>% 
+  mutate(Age = as.integer(Age))%>%
+  #Set the columns with ambiguous data types to something more usable. Most things will be factors rather than double or integers. Age imports as a character so I forced it to read as an integer.
+  mutate(Age_group = case_when(Age <= 18 ~ "child", Age >18 ~ "adult"))%>% 
+  #Add a column called Age_group with child if the passenger was under 18 and adult if they weren't.
+  filter(Age != "NA") %>% 
+  #This will remove all the rows without a known age. 
+  select(PassengerId, Survived, Pclass, Sex, Age_group)
+```
+
+To find the percent of each group (Men, Women, Boys, Girls) that survived I found the total number of each on board and divided the number that survived in each class by that value
+
+```{r tidy = TRUE, eval = FALSE}
+num_survived <- titanic %>% 
+ group_by(Sex, Age_group) %>% 
+ tally()
+#This gives me counts for the number of men, women, boys, and girls.
+```
+
+```{r tidy = TRUE, eval = FALSE}
+survival_counts <- titanic %>% 
+  group_by(Sex, Age_group, Survived, Pclass) %>% 
+  tally() %>% 
+  mutate(prop_survived = if_else(Sex == "female" & Age_group == "adult", n/193, if_else(Sex == "female" & Age_group == "child", n/68, if_else(Sex == "male" & Age_group == "child", n/71, n/382)))) %>% 
+  mutate(perc_survived = 100*prop_survived) %>% 
+  filter(Survived == 1)
+```
+This was the "brute force" method of doing it, I'm sure there was a better way than a bunch of nested `if_else` but I couldn't figure it out.
+
+##About the graph
+
+###Audience
+This graph is meant to be catered to a general audience that understands what the RMS Titanic was and that has heard the phrase "Women and children first" as it applies to this context. Some familiarity with reading a bar graph helps with understanding, but the general idea of the graph (women and girls were more likely to survive than men or boys) is fairly apparent.
+
+###Type of Graph
+This is a stacked bar graph. It compares groups, in this case men, women, boys, and girls, using the height of the bar to show a value (% of group surviving), and the size of the sub-bars to show proportions of the whole that were part of a group (in this case what class the surviving passengers were).
+
+###Description
+This graph shows the percent of total passengers that survived the sinking of the Titanic broken out by sex and age. There are columns for women and girls on the left, and men and boys on the right. The height of the total column represents the percentage of the group that survived (>75% of women for example). The sub-columns represent the class of the survivors, and are colored accordingly. For example, approx. 12.5% of women survived and were in third class. 
+
+The data represented by the graph shows that women, girls, and boys were more likely to survive than men, but that female passengers in general were grossly more likely to survive than male passengers of any age. Surprisingly, a large proportion of surviving children were from third class. This may be due to more large families traveling in third class compared to first class.
+
+###How to read it
+Start by looking for the information in the x and y-axis. How do these two elements relate in what you know about the topic. In a stacked bar plot its important to look at what values are being stacked, are they parts of a larger whole, or parts of only the group being shown? In other words, should they add up to 100%/another total value or not? Finally, address the comparisons between bars. For example, in this graph look at the general comparison between the graphs for females (left) and males (right). 
+
+###Presentation
+This graph uses color to show the passenger class, and is faceted by sex to allow comparisong across multiple dimensions. Other than axis titles and the graph title there are no annotations.
+
+##How I created it
+I made this graph using `ggplot2` to present data from the `survival_counts` data frame created above. `Age_group` is mapped to the x-axis and `perc_survived` is mapped to the y-axis. The fill color is mapped to `Pclass` to provide stacking by passenger class. 
+
+The `geom_bar` call was used with one arguement, `stat = "identity"` which generates a stacked bar graph with no statistical processing.
+
+The graphs were facetted by sex, and the facets were renamed using `labeller` to assign values out of `labels` to replace the facet titles female and male. 
+
+A title, subtitles, and x and y-axis labels were added with `ggtitle` and `labs` respectively. Because the date presented is a precentage the y range is set to 0-100 using `coord_cartesian`. 
+
+The default colors are a bit ugly so I changed them to colors 1,3, and 5 from `FantasticFox1` in the `wesanderson` package, added manually as hex values.
+
+Finally, I adjusted the scaling and positioning of the gridlines on the graph and addede the minimal theme.
+
+```{r eval = FALSE}
+labels <- c(female = "Women/Girls", male = "Men/Boys")
+#This creates a df to use for re-labeling the two graphs after the facet wrap.
+
+ggplot(survival_counts, aes(x = Age_group, y = perc_survived, fill = Pclass))+
+  geom_bar(stat = "identity")+
+  facet_wrap("Sex", labeller = labeller(Sex = labels))+
+  ggtitle("Did 'Women and children first' really apply on the Titanic?", subtitle = "Analyzing the surviving passenger information")+
+  labs(x = "Age Group (Child = under 18)", y = "Percent surviving of group")+
+  coord_cartesian(ylim = c(0,100))+
+  scale_fill_manual(values = c("#DD8D29", "#46ACC8","#B40F20"), name = "Passenger class")+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 100, 25), minor_breaks = seq(0, 100, 12.5))+
+  scale_x_discrete( expand = c(0,0.6), labels = c("Adult", "Child"))+
+  theme_minimal()
+```
+
+Initially I was attempting to make a graph looking at the age of survivors:
+
+```{r echo = FALSE}
+titanicdata <- titanic_train %>% 
+  mutate(Pclass = as.factor(Pclass)) %>% 
+  mutate(Sex = as.factor(Sex)) %>% 
+  mutate(Embarked = as.factor(Embarked)) %>% 
+  mutate(Age = as.integer(Age))
+
+titanicdata2 <- titanicdata %>% 
+  mutate(Age_group = case_when(Age <= 18 ~ "child", Age >18 ~ "adult"))
+
+titanic_filter <- titanicdata2 %>% 
+  filter(Age != 'NA') %>% 
+  select(PassengerId, Survived, Age, Age_group)
+#424 died, 290 survived 
+#titanic_filter %>% 
+# group_by(Survived) %>% 
+# count()
+graph1 <- titanic_filter %>% 
+  group_by(Survived, Age) %>% 
+  count() %>% 
+  ungroup() %>% 
+  rename(number = n) %>%
+  mutate(decade_age = signif(Age, digits = 1)) %>%
+  mutate(decade_age = ifelse (Age < 10, 0, decade_age)) %>% 
+  mutate(Age = as.factor(Age)) %>% 
+  group_by(Survived, decade_age) %>% 
+  summarize(total = sum(number)) %>% 
+  mutate(percent = if_else(Survived == 0, 100*(total/424), 100*(total/290)))
+
+ggplot(graph1, aes(x = decade_age, y = percent)) +
+         geom_col()+
+  facet_wrap(~Survived)+
+  ggtitle("Titanic Survivors and Deaths by decade of age")+
+  labs(x = "Age (by decade)", y = "Percent of total survivors or deaths")
+```
+
+but it ended up not being very interesting and I went with the above idea instead.

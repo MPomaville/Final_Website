@@ -15,24 +15,24 @@
 <meta property="og:site_name" content="Matthew Pomaville" />
 <meta property="og:locale" content="nn_NO" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/projects/" />
-<meta property="og:title" content="Projects" />
-<meta property="twitter:title" content="Projects">
+<meta property="og:url" content="/projects/final-project/" />
+<meta property="og:title" content="Final Project - Women and Children First?" />
+<meta property="twitter:title" content="Final Project - Women and Children First?">
 
-    <meta property="og:image" content="/img/banner.png">
+    <meta property="og:image" content="//images/image.jpg">
     <meta property="twitter:card" content="summary">
-    <meta property="twitter:image" content="/img/banner.png">
+    <meta property="twitter:image" content="//images/image.jpg">
 
-<meta property="og:description" content="">
-<meta property="twitter:description" content="">
+<meta property="og:description" content="Desc">
+<meta property="twitter:description" content="Desc">
 
 <title>
 
 
-     Matthew Pomaville - Projects 
+     Matthew Pomaville - Final Project - Women and Children First? 
 
 </title>
-<link rel="canonical" href="/projects/">
+<link rel="canonical" href="/projects/final-project/">
 
 
 <style media="screen">
@@ -1056,8 +1056,6 @@ div.main .content .markdown pre, div.main .content .markdown pre code {
 
 
 
-  <link href="/projects/index.xml" rel="alternate" type="application/rss+xml" title="Matthew Pomaville" />
-
 
 </head>
 
@@ -1065,7 +1063,7 @@ div.main .content .markdown pre, div.main .content .markdown pre code {
 <body>
 
 
-<div class="header header-home column">
+<div class="header column">
 
     <div class="container">
         
@@ -1107,27 +1105,136 @@ div.main .content .markdown pre, div.main .content .markdown pre code {
 <div class="main column">
     <div class="container">
         <div class="content">
-            
+            <div class="page-heading">
+
+    Final Project - Women and Children First?
+
+</div>
+
             <div class="markdown">
                 
-                    
-                
-            </div>
-            <div class="posts">
-            
-                <div class="page-heading">Projects</div>
-                <ul>
-                    
-                        
-                            <li class="post-item">
-    <span class="meta">Jun 17, 2018</span>
-    <a href="/projects/final-project/"><span>Final Project - Women and Children First?</span></a>
-</li>
+    
+    <div id="final-project-graph---titanic-women-and-children" class="section level1">
+<h1>Final Project Graph - Titanic Women and Children</h1>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This graph looks at the common maritime trope “Women and children first” in the survivors of the sinking of the RMS Titanic on its maiden voyage in 1912. It is commonly believed that men on the Titanic took a role ensuring the women and children on board made it onto the lifeboat before boarding themselves, resulting in more women and children surviving the sknking. Passengers on the Titanic were also divided into three classes based on ticket price. First class and second class areas of the skip were generally located on higher decks, while third class areas were located close to the waterline. Locking gates separated the class areas from each other, and during the sinking and evacuation many crew members forgot to unlock their assigned gates leaving many thirdd class passengers with no straightforward escape option. Beacause the dataset I am using contains passenger class I will attempt to incorporate this into my graph to look at class survival proportion.</p>
+<p>At the time of its sinking the Titanic was carrying 1,317 passengers and 885 crew members. 710 people were saved after the sinking, and 1,514 died in the northern Atlantic Ocean. Using a dataset based on passenger records and identification of recovered bodies, I aim to explore the idea that a larger proportion of the women and children on the Titanic survived the incident than the men on board.</p>
+</div>
+<div id="required-libraries" class="section level2">
+<h2>Required Libraries</h2>
+<p>Creating this graph used the <code>tidyverse</code> and data from the <code>titanic</code> package on CRAN</p>
+<pre class="r"><code>library(tidyverse)
+library(titanic)</code></pre>
+</div>
+<div id="the-graph" class="section level2">
+<h2>The Graph</h2>
+<p>Here is the graph I made to look at the concept of “Women and children first” on the Titanic.</p>
+<p><img src="/projects/2018-06-17-final-project_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="the-data" class="section level2">
+<h2>The Data</h2>
+<p>The data for this graph comes from the CRAN package <code>titanic</code> a compilation of records listing details on 891 passengers. This package is intended for use in machine learning exercises and comes with multiple datasets, but I am interested in <code>titanic_train</code> The data included in these records includes:</p>
+<ul>
+<li><code>PassengerID</code>: The number of the passenger, only relevant to this document</li>
+<li><code>Survived</code>: 1 = Yes, 0 = No</li>
+<li><code>pclass</code>: Ticket class, 1st, 2nd, 3rd</li>
+<li><code>Name</code>: Passenger name formatted as Last, title first middle</li>
+<li><code>sex</code>: sex</li>
+<li><code>Age</code>: in years, xx.5 means estimated</li>
+<li><code>SibSp</code>: The number of siblings and spouses travelling with them</li>
+<li><code>Parch</code>: The number of parents and children travelling with them. Nannies do not count</li>
+<li><code>Ticket</code>: Ticket number</li>
+<li><code>Fare</code>: Ticket price in 1912 GBP</li>
+<li><code>Cabin</code>: Cabin number</li>
+<li><code>Embarked</code>: The port of embarkation
+<ul>
+<li>C - Cherbourg</li>
+<li>Q - Queenstown</li>
+<li>S - Southampton</li>
+</ul></li>
+</ul>
+<p>With some values left blank if unknown.</p>
+<div id="filtering-and-processing-the-data" class="section level3">
+<h3>Filtering and processing the data</h3>
+<p>To look at survival related to sex and age I only needed a few columns from the whole dataset, so I selected only those columns. I then removed any columns with no data for Age.</p>
+<pre class="r"><code>titanic &lt;- titanic_train %&gt;% 
+  mutate(Pclass = as.factor(Pclass)) %&gt;% 
+  mutate(Sex = as.factor(Sex)) %&gt;% 
+  mutate(Embarked = as.factor(Embarked)) %&gt;% 
+  mutate(Age = as.integer(Age))%&gt;%
+  #Set the columns with ambiguous data types to something more usable. Most things will be factors rather than double or integers. Age imports as a character so I forced it to read as an integer.
+  mutate(Age_group = case_when(Age &lt;= 18 ~ &quot;child&quot;, Age &gt;18 ~ &quot;adult&quot;))%&gt;% 
+  #Add a column called Age_group with child if the passenger was under 18 and adult if they weren&#39;t.
+  filter(Age != &quot;NA&quot;) %&gt;% 
+  #This will remove all the rows without a known age. 
+  select(PassengerId, Survived, Pclass, Sex, Age_group)</code></pre>
+<p>To find the percent of each group (Men, Women, Boys, Girls) that survived I found the total number of each on board and divided the number that survived in each class by that value</p>
+<pre class="r"><code>num_survived &lt;- titanic %&gt;% 
+ group_by(Sex, Age_group) %&gt;% 
+ tally()
+#This gives me counts for the number of men, women, boys, and girls.</code></pre>
+<pre class="r"><code>survival_counts &lt;- titanic %&gt;% 
+  group_by(Sex, Age_group, Survived, Pclass) %&gt;% 
+  tally() %&gt;% 
+  mutate(prop_survived = if_else(Sex == &quot;female&quot; &amp; Age_group == &quot;adult&quot;, n/193, if_else(Sex == &quot;female&quot; &amp; Age_group == &quot;child&quot;, n/68, if_else(Sex == &quot;male&quot; &amp; Age_group == &quot;child&quot;, n/71, n/382)))) %&gt;% 
+  mutate(perc_survived = 100*prop_survived) %&gt;% 
+  filter(Survived == 1)</code></pre>
+<p>This was the “brute force” method of doing it, I’m sure there was a better way than a bunch of nested <code>if_else</code> but I couldn’t figure it out.</p>
+</div>
+</div>
+<div id="about-the-graph" class="section level2">
+<h2>About the graph</h2>
+<div id="audience" class="section level3">
+<h3>Audience</h3>
+<p>This graph is meant to be catered to a general audience that understands what the RMS Titanic was and that has heard the phrase “Women and children first” as it applies to this context. Some familiarity with reading a bar graph helps with understanding, but the general idea of the graph (women and girls were more likely to survive than men or boys) is fairly apparent.</p>
+</div>
+<div id="type-of-graph" class="section level3">
+<h3>Type of Graph</h3>
+<p>This is a stacked bar graph. It compares groups, in this case men, women, boys, and girls, using the height of the bar to show a value (% of group surviving), and the size of the sub-bars to show proportions of the whole that were part of a group (in this case what class the surviving passengers were).</p>
+</div>
+<div id="description" class="section level3">
+<h3>Description</h3>
+<p>This graph shows the percent of total passengers that survived the sinking of the Titanic broken out by sex and age. There are columns for women and girls on the left, and men and boys on the right. The height of the total column represents the percentage of the group that survived (&gt;75% of women for example). The sub-columns represent the class of the survivors, and are colored accordingly. For example, approx. 12.5% of women survived and were in third class.</p>
+<p>The data represented by the graph shows that women, girls, and boys were more likely to survive than men, but that female passengers in general were grossly more likely to survive than male passengers of any age. Surprisingly, a large proportion of surviving children were from third class. This may be due to more large families traveling in third class compared to first class.</p>
+</div>
+<div id="how-to-read-it" class="section level3">
+<h3>How to read it</h3>
+<p>Start by looking for the information in the x and y-axis. How do these two elements relate in what you know about the topic. In a stacked bar plot its important to look at what values are being stacked, are they parts of a larger whole, or parts of only the group being shown? In other words, should they add up to 100%/another total value or not? Finally, address the comparisons between bars. For example, in this graph look at the general comparison between the graphs for females (left) and males (right).</p>
+</div>
+<div id="presentation" class="section level3">
+<h3>Presentation</h3>
+<p>This graph uses color to show the passenger class, and is faceted by sex to allow comparisong across multiple dimensions. Other than axis titles and the graph title there are no annotations.</p>
+</div>
+</div>
+<div id="how-i-created-it" class="section level2">
+<h2>How I created it</h2>
+<p>I made this graph using <code>ggplot2</code> to present data from the <code>survival_counts</code> data frame created above. <code>Age_group</code> is mapped to the x-axis and <code>perc_survived</code> is mapped to the y-axis. The fill color is mapped to <code>Pclass</code> to provide stacking by passenger class.</p>
+<p>The <code>geom_bar</code> call was used with one arguement, <code>stat = &quot;identity&quot;</code> which generates a stacked bar graph with no statistical processing.</p>
+<p>The graphs were facetted by sex, and the facets were renamed using <code>labeller</code> to assign values out of <code>labels</code> to replace the facet titles female and male.</p>
+<p>A title, subtitles, and x and y-axis labels were added with <code>ggtitle</code> and <code>labs</code> respectively. Because the date presented is a precentage the y range is set to 0-100 using <code>coord_cartesian</code>.</p>
+<p>The default colors are a bit ugly so I changed them to colors 1,3, and 5 from <code>FantasticFox1</code> in the <code>wesanderson</code> package, added manually as hex values.</p>
+<p>Finally, I adjusted the scaling and positioning of the gridlines on the graph and addede the minimal theme.</p>
+<pre class="r"><code>labels &lt;- c(female = &quot;Women/Girls&quot;, male = &quot;Men/Boys&quot;)
+#This creates a df to use for re-labeling the two graphs after the facet wrap.
 
-                        
-                    
-                </ul>
-            
+ggplot(survival_counts, aes(x = Age_group, y = perc_survived, fill = Pclass))+
+  geom_bar(stat = &quot;identity&quot;)+
+  facet_wrap(&quot;Sex&quot;, labeller = labeller(Sex = labels))+
+  ggtitle(&quot;Did &#39;Women and children first&#39; really apply on the Titanic?&quot;, subtitle = &quot;Analyzing the surviving passenger information&quot;)+
+  labs(x = &quot;Age Group (Child = under 18)&quot;, y = &quot;Percent surviving of group&quot;)+
+  coord_cartesian(ylim = c(0,100))+
+  scale_fill_manual(values = c(&quot;#DD8D29&quot;, &quot;#46ACC8&quot;,&quot;#B40F20&quot;), name = &quot;Passenger class&quot;)+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 100, 25), minor_breaks = seq(0, 100, 12.5))+
+  scale_x_discrete( expand = c(0,0.6), labels = c(&quot;Adult&quot;, &quot;Child&quot;))+
+  theme_minimal()</code></pre>
+<p>Initially I was attempting to make a graph looking at the age of survivors:</p>
+<p><img src="/projects/2018-06-17-final-project_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>but it ended up not being very interesting and I went with the above idea instead.</p>
+</div>
+</div>
+
+
             </div>
         </div>
     </div>
