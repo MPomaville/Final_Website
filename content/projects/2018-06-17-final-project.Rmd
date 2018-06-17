@@ -116,14 +116,14 @@ titanic <- titanic_train %>%
 
 To find the percent of each group (Men, Women, Boys, Girls) that survived I found the total number of each on board and divided the number that survived in each class by that value
 
-```{r tidy = TRUE, eval = FALSE}
+```{r eval = FALSE}
 num_survived <- titanic %>% 
  group_by(Sex, Age_group) %>% 
  tally()
 #This gives me counts for the number of men, women, boys, and girls.
 ```
 
-```{r tidy = TRUE, eval = FALSE}
+```{r eval = FALSE}
 survival_counts <- titanic %>% 
   group_by(Sex, Age_group, Survived, Pclass) %>% 
   tally() %>% 
