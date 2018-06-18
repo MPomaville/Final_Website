@@ -6,10 +6,24 @@
     <description>Recent content on Matthew Pomaville</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 17 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Final Presentation</title>
+      <link>/project/final-presentation/</link>
+      <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/project/final-presentation/</guid>
+      <description>class: inverse, middle, center
+Women and Children First! ###An Exploration into survivors of the RMS Titanic class: center ##Introduction
+.pull-left[ ]
+ .pull-right[Over 1,500 of the 2,200 people on board died after hitting an iceberg in 1912.] class: center #But!
+ Did the trope of “Women and children first” actually apply on the Titanic? class: center
+  Data The data from this graph came from the CRAN package “titanic” which is intended for machine learning projects.</description>
+    </item>
     
     <item>
       <title>Final Project - Women and Children First?</title>

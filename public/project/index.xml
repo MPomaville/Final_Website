@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on Matthew Pomaville</title>
+    <link>/project/</link>
+    <description>Recent content in Project on Matthew Pomaville</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 18 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Final Presentation</title>
+      <link>/project/final-presentation/</link>
+      <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/project/final-presentation/</guid>
+      <description>class: inverse, middle, center
+Women and Children First! ###An Exploration into survivors of the RMS Titanic class: center ##Introduction
+.pull-left[ ]
+ .pull-right[Over 1,500 of the 2,200 people on board died after hitting an iceberg in 1912.] class: center #But!
+ Did the trope of “Women and children first” actually apply on the Titanic? class: center
+  Data The data from this graph came from the CRAN package “titanic” which is intended for machine learning projects.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,59 @@
+---
+title: Final Presentation
+author: Matt Pomaville
+date: '2018-06-18'
+slug: final-presentation
+categories:
+  - CS631
+tags:
+  - xaringan
+description: Desc
+hacker_news_id: ''
+lobsters_id: ''
+meta_img: /images/image.jpg
+output: xaringan::moon_reader
+---
+class: inverse, middle, center
+
+#Women and Children First!
+###An Exploration into survivors of the RMS Titanic
+---
+class: center
+##Introduction
+
+.pull-left[
+```{r echo = FALSE}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/f/fd/RMS_Titanic_3.jpg")
+```
+]
+
+.pull-right[Over 1,500 of the 2,200 people on board died after hitting an iceberg in 1912.]
+---
+class: center
+#But!
+
+Did the trope of "Women and children first" actually apply on the Titanic?
+---
+class: center
+
+#Data
+
+The data from this graph came from the CRAN package "titanic" which is intended for machine learning projects.
+
+It contains data on over 800 passengers from the Titanic.
+
+---
+class: center
+#The Graph
+
+```{r echo = FALSE}
+knitr::include_graphics("/home/matt/Documents/Final_Proj_Website/titanic2.png")
+```
+---
+
+#Thanks!
+
+
+
+
+

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/project/final-presentation/</loc>
+    <lastmod>2018-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/projects/final-project/</loc>
     <lastmod>2018-06-17T00:00:00+00:00</lastmod>
   </url>
@@ -45,7 +50,7 @@
   
   <url>
     <loc>/categories/cs631/</loc>
-    <lastmod>2018-06-13T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -65,7 +70,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-06-17T00:00:00+00:00</lastmod>
+    <lastmod>2018-06-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2018-06-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -84,6 +95,12 @@
   <url>
     <loc>/tags/</loc>
     <lastmod>2018-06-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/xaringan/</loc>
+    <lastmod>2018-06-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
