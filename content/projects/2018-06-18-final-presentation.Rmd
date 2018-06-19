@@ -1,0 +1,15 @@
+---
+title: Final Presentation
+author: Matt Pomaville
+date: '2018-06-18'
+slug: final-presentation
+categories: []
+tags: []
+description: Desc
+hacker_news_id: ''
+lobsters_id: ''
+meta_img: /images/image.jpg
+---
+```{r echo = FALSE}
+knitr::include_url('https://mpomaville.netlify.com/slides/2018-06-18-final-presentation.Rmd')
+```
