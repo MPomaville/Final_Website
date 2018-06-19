@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final Presentation</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Matt Pomaville" />
+    <meta name="date" content="2018-06-18" />
+    <link href="2018-06-18-final-presentation_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="2018-06-18-final-presentation_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Final Presentation
+### Matt Pomaville
+### 2018-06-18
+
+---
+
+class: inverse, middle, center
+
+#Women and Children First!
+###An Exploration into survivors of the RMS Titanic
+---
+class: center, middle
+#Introduction
+
+.pull-left[
+![](https://upload.wikimedia.org/wikipedia/commons/f/fd/RMS_Titanic_3.jpg)&lt;!-- --&gt;
+]
+
+.pull-right[###Over 1,500 of the 2,200 people on board died after hitting an iceberg in 1912.]
+---
+class: center, middle
+#But!
+
+##Did the trope of "Women and children first" actually apply on the Titanic?
+---
+class: center
+
+#Data
+
+The data from this graph came from the CRAN package "titanic" which is intended for machine learning projects.
+
+It contains data on over 800 passengers from the Titanic.
+
+---
+class: center
+#The Graph
+
+![](/home/matt/Documents/Final_Proj_Website/titanic2.png)&lt;!-- --&gt;
+---
+class: center, middle
+
+#Thanks!
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
