@@ -104,8 +104,8 @@ library(tidyverse) library(gapminder) library(wesanderson) In this visalization 
       <guid>/home/</guid>
       <description>I&amp;rsquo;m Matt Pomaville a graduate student at OHSU in the Cell and Developmental Biology Graduate Program.
 This website is currently a demo site for CS631, but will expand at a later point.
-[Here]() are some example graphs I created for CS631 along with descriptions of what they show
-[Here]() is my final project.</description>
+[Here](&amp;ldquo;https://mpomaville.netlify.com/blog/&amp;quot;) are some example graphs I created for CS631 along with descriptions of what they show
+[Here](&amp;ldquo;https://mpomaville.netlify.com/projects/&amp;quot;) is my final project.</description>
     </item>
     
     <item>
