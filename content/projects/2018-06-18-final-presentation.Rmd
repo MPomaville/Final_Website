@@ -10,6 +10,5 @@ hacker_news_id: ''
 lobsters_id: ''
 meta_img: /images/image.jpg
 ---
-```{r echo = FALSE}
-knitr::include_url('https://mpomaville.netlify.com/slides/2018-06-18-final-presentation.Rmd')
-```
+
+My final presentation is available [here]('https://mpomaville.netlify.com/slides/2018-06-18-final-presentation.html')
