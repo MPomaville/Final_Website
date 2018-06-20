@@ -10,6 +10,7 @@ hacker_news_id: ''
 lobsters_id: ''
 meta_img: /images/image.jpg
 ---
+My Slides:
 
 ```{r echo = FALSE}
 knitr::include_url('../../slides/2018-06-18-final-presentation.html')
