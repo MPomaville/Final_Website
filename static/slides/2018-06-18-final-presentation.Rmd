@@ -45,7 +45,7 @@ class: center
 #The Graph
 
 ```{r echo = FALSE}
-knitr::include_graphics("/home/matt/Documents/Final_Proj_Website/titanic2.png")
+knitr::include_graphics("../../slides/titanic2.png")
 ```
 ---
 
